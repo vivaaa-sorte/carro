@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="pt-br"><head>
+  <meta charset="UTF-8">
+  <title>Jogo das Cartas Premiadas</title>
+  <style>
+    body {
+      background: url('images/fundo.png') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
+    }
+
+    .cartas-wrapper {
+      display: flex;
+      gap: 20px;
+    }
+
+    .carta-container {
+      perspective: 1000px;
+    }
+
+    .carta {
+      width: 280px;
+      height: 420px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+      cursor: pointer;
+    }
+
+    .carta.virada {
+      transform: rotateY(180deg);
+    }
+
+    .frente, .verso {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+.frente {
+  animation: pulsar 1.5s infinite ease-in-out;
+}
+
+    .frente img, .verso img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 12px;
+    }
+
+    .verso {
+      transform: rotateY(180deg);
+    }
+
+@keyframes pulsar-suave {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+ 
+ @keyframes pulsar {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+   /* POPUP */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+.popup-content {
+  background: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  max-width: 500px;
+  width: 90%;
+}
+
+
+.popup-content h2 {
+  margin-bottom: 20px;
+  font-size: 50px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #222;
+  font-weight: 900;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+}
+
+
+.popup-content a {
+  display: inline-block;
+  background: #007bff;
+  color: white;
+  padding: 30px 60px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 36px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: pulsar-suave 1.5s infinite ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+  transition: background 0.3s, transform 0.2s;
+}
+
+
+
+
+.popup-content a:hover {
+  background: #0056b3;
+  transform: scale(1.03);
+}
+
+  .cartas-wrapper {
+    display: flex;
+    gap: 20px;
+    transition: all 1s ease;
+  }
+
+  .cartas-wrapper.embaralhando .carta-container:nth-child(1) {
+    transform: translateX(-100px) rotate(-5deg);
+  }
+
+  .cartas-wrapper.embaralhando .carta-container:nth-child(2) {
+    transform: translateY(-80px) rotate(4deg);
+  }
+
+  .cartas-wrapper.embaralhando .carta-container:nth-child(3) {
+    transform: translateX(100px) rotate(-6deg);
+  }
+
+  .carta-container {
+    perspective: 1000px;
+    transition: transform 1s ease;
+  }
+  
+  </style>
+</head>
+<body>
+
+  <div class="cartas-wrapper">
+    <div class="carta-container">
+<div class="carta" onclick="virarCarta(this)" data-popup="popup1">
+        <div class="frente">
+          <img src="images/cartav.png" alt="Frente 1">
+        </div>
+        <div class="verso">
+          <img src="images/TOURO.png" alt="Presente 1">
+        </div>
+      </div>
+    </div>
+
+    <div class="carta-container">
+<div class="carta" onclick="virarCarta(this)" data-popup="popup2">
+        <div class="frente">
+          <img src="images/cartav.png" alt="Frente 2">
+        </div>
+        <div class="verso">
+          <img src="images/MONTANA.png" alt="Presente 2">
+        </div>
+      </div>
+    </div>
+
+    <div class="carta-container">
+<div class="carta" onclick="virarCarta(this)" data-popup="popup3">
+        <div class="frente">
+          <img src="images/cartav.png" alt="Frente 3">
+        </div>
+        <div class="verso">
+          <img src="images/STRADA.png" alt="Presente 3">
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- POPUP 1 -->
+<div class="popup" id="popup1">
+  <div class="popup-content">
+    <h2>PARABÉNS! VOCÊ GANHOU!</h2>
+    <img src="images/TOURO.png" alt="Prêmio 1" style="max-width: 100%; margin: 20px 0; animation: pulsar-suave 1.5s infinite ease-in-out;">
+    <a href="/carta/touro" target="_blank">RESGATAR AGORA</a>
+  </div>
+</div>
+
+<!-- POPUP 2 -->
+<div class="popup" id="popup2">
+  <div class="popup-content">
+    <h2>PARABÉNS! VOCÊ GANHOU!</h2>
+    <img src="images/MONTANA.png" alt="Prêmio 2" style="max-width: 100%; margin: 20px 0; animation: pulsar-suave 1.5s infinite ease-in-out;">
+    <a href="/carta/montana" target="_blank">RESGATAR AGORA</a>
+  </div>
+</div>
+
+<!-- POPUP 3 -->
+<div class="popup" id="popup3">
+  <div class="popup-content">
+    <h2>PARABÉNS! VOCÊ GANHOU!</h2>
+    <img src="images/STRADA.png" alt="Prêmio 3" style="max-width: 100%; margin: 20px 0; animation: pulsar-suave 1.5s infinite ease-in-out;">
+    <a href="/carta/strada" target="_blank">RESGATAR AGORA</a>
+  </div>
+</div>
+
+
+
+  
+
+<script>
+  function virarCarta(carta) {
+    if (!carta.classList.contains('virada')) {
+      carta.classList.add('virada');
+
+      const popupId = carta.getAttribute('data-popup');
+
+      setTimeout(() => {
+        document.getElementById(popupId).style.display = 'flex';
+      }, 2000);
+    }
+  }
+</script>
+
+
+
+
+
+</body></html>
